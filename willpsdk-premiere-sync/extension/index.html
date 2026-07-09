@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>willpsdk Premiere Sync</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo-dot" id="status-dot" title="Network status"></span>
+      <span class="brand-name">willpsdk <b>Premiere Sync</b></span>
+    </div>
+    <button class="icon-btn" id="btn-settings" title="Settings">&#9881;</button>
+  </header>
+
+  <div class="device-line" id="device-line">starting&hellip;</div>
+
+  <div class="actions">
+    <button class="btn primary big" id="btn-add">+ Add Project</button>
+  </div>
+
+  <main id="main">
+
+    <section>
+      <h2>Sharing from this computer</h2>
+      <div class="list" id="shared-list">
+        <div class="empty">Nothing shared yet. Click <b>Add Project</b> and pick a project on this computer to share it with your other machines.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Synced from network</h2>
+      <div class="list" id="synced-list">
+        <div class="empty">No synced projects. Click <b>Add Project</b> on this machine and choose a project from another computer.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Devices on network</h2>
+      <div class="list" id="peers-list">
+        <div class="empty">Looking for other computers running willpsdk Premiere Sync&hellip;</div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="fatal hidden" id="fatal"></div>
+
+  <!-- Add Project modal -->
+  <div class="modal-backdrop hidden" id="modal-add">
+    <div class="modal">
+      <div class="modal-head">
+        <span>Add Project</span>
+        <button class="icon-btn" data-close="modal-add">&#10005;</button>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="local">This computer</button>
+        <button class="tab" data-tab="network">From network</button>
+      </div>
+      <div class="modal-body">
+        <div id="tab-local">
+          <div class="hint">Share a project so your other computers can sync it (project file + all media).</div>
+          <div class="list" id="add-local-list"></div>
+          <button class="btn" id="btn-browse">Browse for .prproj&hellip;</button>
+        </div>
+        <div id="tab-network" class="hidden">
+          <div class="hint">Projects shared by other computers on your network. Click one to sync it here.</div>
+          <div class="list" id="add-network-list">
+            <div class="empty">Searching&hellip;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings modal -->
+  <div class="modal-backdrop hidden" id="modal-settings">
+    <div class="modal">
+      <div class="modal-head">
+        <span>Settings</span>
+        <button class="icon-btn" data-close="modal-settings">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <label class="field">
+          <span>Device name (shown to other computers)</span>
+          <input type="text" id="set-device-name" maxlength="60">
+        </label>
+        <label class="field">
+          <span>Sync folder (where network projects download to)</span>
+          <div class="row">
+            <input type="text" id="set-sync-folder">
+            <button class="btn" id="btn-pick-folder">&hellip;</button>
+          </div>
+        </label>
+        <label class="field checkbox-field">
+          <span style="display:flex;align-items:center;gap:6px;">
+            <input type="checkbox" id="set-two-way" style="width:auto;">
+            Two-way sync (send my edits and new files back to the source computer)
+          </span>
+        </label>
+        <div class="hint">When the same file changed on both computers, the newest save wins — the older project file is kept in a “WVS Backups” folder, nothing is lost.</div>
+        <div class="hint" id="settings-net-info"></div>
+        <div class="modal-actions">
+          <button class="btn primary" id="btn-save-settings">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+
+  <script src="js/CSInterface.js"></script>
+  <script src="js/sync-engine.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
